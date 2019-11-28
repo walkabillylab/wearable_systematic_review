@@ -21,4 +21,5 @@ Conclusion: Activity trackers are still an emerging market and the devices are c
 ## Code
 [https://github.com/walkabillylab/wearable_systematic_review/blob/master/wearable_systematic_review.md](https://github.com/walkabillylab/wearable_systematic_review/blob/master/wearable_systematic_review.md)
 
-
+## Data
+[https://doi.org/10.7910/DVN/O7GQIM](https://doi.org/10.7910/DVN/O7GQIM)
