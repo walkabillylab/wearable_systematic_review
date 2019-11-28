@@ -12,6 +12,27 @@ output:
 
 
 
+```r
+# read in data
+validity <- read_excel("SysReview_Results_all_20190819.xlsx", sheet = "validity_data")
+```
+
+```
+## Warning in read_fun(path = enc2native(normalizePath(path)), sheet_i = sheet, :
+## Expecting logical in CU1178 / R1178C99: got 'at least one tracker in approx 50%
+## of subjects'
+```
+
+```r
+#write.csv(validity, "/Users/dfuller/Dropbox/Projects/Device Review/SysReview_Results/wearable_review_data_validity.csv")
+
+reliability <- read_excel("SysReview_Results_all_20190819.xlsx", sheet = "reliability_data")
+#write.csv(reliability, "/Users/dfuller/Dropbox/Projects/Device Review/SysReview_Results/wearable_review_data_reliability.csv")
+
+brandcountbyyear <- read_excel("SysReview_Results_all_20190819.xlsx", sheet = "study_brand")
+
+study_measures <- read_excel("SysReview_Results_all_20190819.xlsx", sheet = "study_measures")
+```
 
 ### Creating a Heart Rate yes no variable
 
@@ -703,29 +724,6 @@ table(validity_mpe_ee_free$Brand)
 ##        6        1        3        3        4
 ```
 
-### Figure XYZ. Validity of expenditure when devices have heart rate versus don't have heart rate
-
-
-```r
-hr_ee_test <- ggplot(validity_mpe_ee_device, aes(x = device_name, y = MPE, colour = hr_yes)) +
-                    geom_boxplot() +
-                    scale_y_continuous(limits=c(-1, 2.15), labels = percent) +
-                    geom_hline(yintercept = 0) +  
-                    geom_hline(yintercept = 0.03, size = 0.5, colour = "grey", linetype = "dashed") + 
-                    geom_hline(yintercept = -0.03, size = 0.5, colour = "grey", linetype = "dashed") +    
-                    scale_x_discrete(labels = wrap_format(10)) +
-                    xlab("Device Model") +
-                    theme_classic() +
-                    scale_colour_brewer(palette="Dark2") +
-                    ylab("Energy Expenditure MPE") +
-                    theme(legend.justification = c(1, 1), 
-                          legend.position = c(1, 1),
-                          axis.text.x = element_text(angle = 90, hjust = 1)) 
-plot(hr_ee_test)
-```
-
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
-
 # Reliability
 
 # Correlation Coefficient Plots for Reliability
@@ -881,7 +879,7 @@ relcc_plot_sc_type <- ggplot(reliability_cc_sc, aes(x = reliability_type, y = CC
 plot(relcc_plot_sc_type)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 
 ## Inter-Device Reliability CC Plot for Step Count
@@ -957,7 +955,7 @@ relcc_plot_sc_intra <- ggplot(reliability_cc_sc_intra, aes(x = Brand, y = CC, co
 plot(relcc_plot_sc_intra)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
 
 ## Reliability CC Plot for HR
 
@@ -982,7 +980,7 @@ relcc_plot_hr <- ggplot(reliability_cc_hr, aes(x = Brand, y = CC, colour = Brand
 plot(relcc_plot_hr)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
 
 ## Reliability CC Plot for EE
 
@@ -1007,7 +1005,7 @@ relcc_plot_ee <- ggplot(reliability_cc_ee, aes(x = Brand, y = CC, colour = Brand
 plot(relcc_plot_ee)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
 
 
 ## Supplement Figure
@@ -1072,7 +1070,7 @@ plot(mpe_ee_plot_hr_device)
 ## Warning: Removed 133 rows containing non-finite values (stat_boxplot).
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-32-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
 
 ```r
 ggsave("supp_f1_mpe_ee_plot_hr_device.pdf", plot = mpe_ee_plot_hr_device, width = 6, height = 4)
