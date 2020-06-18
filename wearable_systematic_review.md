@@ -524,14 +524,12 @@ mpe_plot_sc_device <- ggplot(validity_mpe_sc_device, aes(x = device_name, y = MP
                     geom_hline(yintercept = 0) +  
                     geom_hline(yintercept = 0.03, size = 0.5, colour = "grey", linetype = "dashed") + 
                     geom_hline(yintercept = -0.03, size = 0.5, colour = "grey", linetype = "dashed") +    
-                    scale_x_discrete(labels = wrap_format(10)) +
+                    scale_x_discrete(labels = wrap_format(50)) +
                     xlab("Device Model") +
                     ylab("Step MPE") +
                     theme_classic() +
                     scale_colour_brewer(palette="Dark2") +
-                    theme(legend.justification = c(1, 1), 
-                          legend.position = c(1, 1),
-                          axis.text.x = element_text(angle = 90, hjust=1))
+                    theme(axis.text.x = element_text(angle = 90, hjust=1))
 plot(mpe_plot_sc_device)
 ```
 
@@ -589,14 +587,12 @@ mpe_plot_hr_device <- ggplot(validity_mpe_hr_device, aes(x = device_name, y = MP
                     geom_hline(yintercept = 0) +  
                     geom_hline(yintercept = 0.03, size = 0.5, colour = "grey", linetype = "dashed") + 
                     geom_hline(yintercept = -0.03, size = 0.5, colour = "grey", linetype = "dashed") +    
-                    scale_x_discrete(labels = wrap_format(10)) +
+                    scale_x_discrete(labels = wrap_format(50)) +
                     xlab("Device Model") +
                     ylab("Heart Rate MPE") +
                     theme_classic() +
                     scale_colour_brewer(palette="Dark2") +
-                    theme(legend.justification = c(1, 1), 
-                          legend.position = c(1, 1),
-                          axis.text.x = element_text(angle = 90, hjust = 1))
+                    theme(axis.text.x = element_text(angle = 90, hjust = 1))
 plot(mpe_plot_hr_device)
 ```
 
@@ -653,14 +649,12 @@ mpe_plot_ee_device <- ggplot(validity_mpe_ee_device, aes(x = device_name, y = MP
                     geom_hline(yintercept = 0) +  
                     geom_hline(yintercept = 0.03, size = 0.5, colour = "grey", linetype = "dashed") + 
                     geom_hline(yintercept = -0.03, size = 0.5, colour = "grey", linetype = "dashed") +    
-                    scale_x_discrete(labels = wrap_format(10)) +
+                    scale_x_discrete(labels = wrap_format(50)) +
                     xlab("Device Model") +
                     theme_classic() +
                     scale_colour_brewer(palette="Dark2") +
                     ylab("Energy Expenditure MPE") +
-                    theme(legend.justification = c(1, 1), 
-                          legend.position = c(1, 1),
-                          axis.text.x = element_text(angle = 90, hjust = 1))
+                    theme(axis.text.x = element_text(angle = 90, hjust = 1))
 plot(mpe_plot_ee_device)
 ```
 
@@ -674,6 +668,10 @@ ggsave("6c_mpe_plot_ee_device.pdf", plot = mpe_plot_ee_device, width = 6, height
 
 
 ```r
+par(xpd = NA, # switch off clipping, necessary to always see axis labels
+    bg = "transparent", # switch off background to avoid obscuring adjacent plots
+    oma = c(2, 2, 0, 0)) # move plot to the right and up
+
 figure6 <- plot_grid(mpe_plot_sc_device, mpe_plot_hr_device, mpe_plot_ee_device, labels = c('A', 'B', 'C'))
 ```
 
