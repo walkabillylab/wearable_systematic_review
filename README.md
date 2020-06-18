@@ -1,13 +1,13 @@
 # wearable_systematic_review
 
 ## Submitted
-British Journal of Sports Medicine
+Journal of Medical Internet Research mHealth and uHealth
 
 ## Title 
-Systematic Review of the Reliability and Validity of Commercially Available Wearable Devices for Measuring Steps, Energy Expenditure, and Heart Rate 
-
+Reliability and Validity of Commercially Available Wearable Devices for Measuring Steps, Energy Expenditure, and Heart Rate: A Systemic Review 
+     
 ## Authors
-Daniel Fuller, Emily M. Colwell, Jonathan Low, Kassia Orychock, Melissa Tobin, Bo Simango, Richard Buote, Desiree Van Heerden, Logan Slade, Henry Luan, Kimberley Cullen
+Daniel Fuller, Emily M. Colwell, Jonathan Low, Kassia Orychock, Melissa Tobin, Bo Simango, Richard Buote, Desiree Van Heerden, Logan Slade, Hui Luan, Kimberley Cullen
 
 ## Abstract
 Introduction: Consumer-wearable activity trackers are small electronic devices engineered to monitor and record fitness and health-related measures. The purpose of this systematic review is to examine the validity and reliability of commercial wearables in measuring step count, heart rate, and energy expenditure. 
