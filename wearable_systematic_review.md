@@ -18,9 +18,9 @@ validity <- read_excel("SysReview_Results_all_20190819.xlsx", sheet = "validity_
 ```
 
 ```
-## Warning in read_fun(path = enc2native(normalizePath(path)), sheet_i = sheet, :
-## Expecting logical in CU1178 / R1178C99: got 'at least one tracker in approx 50%
-## of subjects'
+## Warning in read_fun(path = enc2native(normalizePath(path)), sheet_i =
+## sheet, : Expecting logical in CU1178 / R1178C99: got 'at least one tracker
+## in approx 50% of subjects'
 ```
 
 ```r
@@ -362,6 +362,34 @@ ggsave("5a_mpe_plot_sc_brandfilter_control.pdf", plot = mpe_plot_sc_brandfilter_
 ## Warning: Removed 4 rows containing missing values (position_beeswarm).
 ```
 
+### MPE for step count with 95% CI
+
+```r
+mpe_step <- validity_mpe_sc_brandfilter_control %>%
+  group_by(Brand) %>%
+  summarise(mpe_median = median(MPE, na.rm = TRUE),
+            mpe_mean = mean(MPE, na.rm = TRUE),
+            mpe_sd = sd(MPE, na.rm = TRUE),
+            mpe_n = n()) %>%
+  mutate(se_mpe = mpe_mean / sqrt(mpe_n),
+         l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
+         u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+
+kable(mpe_step, format = "markdown")
+```
+
+
+
+|Brand    | mpe_median|   mpe_mean|    mpe_sd| mpe_n|     se_mpe|   l_ci_mpe|  u_ci_mpe|
+|:--------|----------:|----------:|---------:|-----:|----------:|----------:|---------:|
+|Apple    |  0.0027825|  0.2017806| 0.6798177|    20|  0.0451195| -1.2210943| 1.6246554|
+|Fitbit   | -0.0160000| -0.0673598| 0.3622429|   531| -0.0029232| -0.7789679| 0.6442482|
+|Garmin   | -0.0130000| -0.0887714| 0.2053548|   129| -0.0078159| -0.4951009| 0.3175582|
+|Misfit   | -0.3493000| -0.2362693| 0.2917810|    21| -0.0515582| -0.8449138| 0.3723753|
+|Polar    | -0.0516953| -0.0283498| 0.1088452|    24| -0.0057869| -0.2535133| 0.1968136|
+|Samsung  | -0.0208342| -0.0107434| 0.0434634|    14| -0.0028713| -0.1046404| 0.0831536|
+|Withings | -0.0214861| -0.2390979| 0.3611451|    61| -0.0306133| -0.9614956| 0.4832999|
+
 # Figure 5b: MPE Plot for HR by Brand, Controlled Setting
 * Solid grey lines indicate ± 3% measurement error
 
@@ -388,12 +416,35 @@ mpe_plot_hr_brandfilter_control <- ggplot(validity_mpe_hr_brandfilter_control, a
 plot(mpe_plot_hr_brandfilter_control)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ```r
 ggsave("5b_mpe_plot_hr_brandfilter_control.pdf", plot = mpe_plot_hr_brandfilter_control, width = 6, height = 4)
 ```
 
+### MPE for heart rate with 95% CI
+
+```r
+mpe_heart <- validity_mpe_hr_brandfilter_control %>%
+  group_by(Brand) %>%
+  summarise(mpe_median = median(MPE, na.rm = TRUE),
+            mpe_mean = mean(MPE, na.rm = TRUE),
+            mpe_sd = sd(MPE, na.rm = TRUE),
+            mpe_n = n()) %>%
+  mutate(se_mpe = mpe_mean / sqrt(mpe_n),
+         l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
+         u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+
+kable(mpe_heart, format = "markdown")
+```
+
+
+
+|Brand  | mpe_median|   mpe_mean|    mpe_sd| mpe_n|     se_mpe|   l_ci_mpe|  u_ci_mpe|
+|:------|----------:|----------:|---------:|-----:|----------:|----------:|---------:|
+|Apple  | -0.0059701|  0.0032577| 0.0368286|    49|  0.0004654| -0.0707911| 0.0773065|
+|Fitbit | -0.0161000| -0.0179468| 0.0514476|    71| -0.0021299| -0.1205558| 0.0846622|
+|Garmin | -0.0050000| -0.0083652| 0.0855113|    47| -0.0012202| -0.1804904| 0.1637601|
 
 # Figure 5c: MPE Plot for EE by Brand, All Settings
 * Solid grey lines indicate ± 3% measurement error
@@ -419,11 +470,37 @@ mpe_plot_ee_brandfilter_control <- ggplot(validity_mpe_ee_brandfilter_control, a
 plot(mpe_plot_ee_brandfilter_control)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 ```r
 ggsave("5c_mpe_plot_ee_brandfilter_control.pdf", plot = mpe_plot_ee_brandfilter_control, width = 6, height = 4)
 ```
+
+### MPE for energy expenditure with 95% CI
+
+```r
+mpe_ee <- validity_mpe_ee_brandfilter_control %>%
+  group_by(Brand) %>%
+  summarise(mpe_median = median(MPE, na.rm = TRUE),
+            mpe_mean = mean(MPE, na.rm = TRUE),
+            mpe_sd = sd(MPE, na.rm = TRUE),
+            mpe_n = n()) %>%
+  mutate(se_mpe = mpe_mean / sqrt(mpe_n),
+         l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
+         u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+
+kable(mpe_ee, format = "markdown")
+```
+
+
+
+|Brand    | mpe_median|   mpe_mean|    mpe_sd| mpe_n|     se_mpe|   l_ci_mpe|  u_ci_mpe|
+|:--------|----------:|----------:|---------:|-----:|----------:|----------:|---------:|
+|Apple    |  0.0953109|  0.2963660| 0.6014881|    31|  0.0532289| -0.9320366| 1.5247685|
+|Fitbit   | -0.0210000|  0.0308324| 0.2912384|   157|  0.0024607| -0.5444471| 0.6061119|
+|Garmin   | -0.1140000| -0.0775789| 0.4517838|    51| -0.0108632| -0.9850134| 0.8298556|
+|Polar    |  0.2210000|  0.1876874| 0.3200823|    13|  0.0520551| -0.5097119| 0.8850867|
+|Withings | -0.1935484| -0.2134909| 0.3182440|    46| -0.0314775| -0.8544673| 0.4274854|
 
 # Figure 5 
 
@@ -443,7 +520,7 @@ figure5 <- plot_grid(mpe_plot_sc_brandfilter_control, mpe_plot_hr_brandfilter_co
 plot(figure5)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 ```r
 ggsave("figure5.pdf", plot = figure5, width = 8.5, height = 6)
@@ -537,7 +614,7 @@ plot(mpe_plot_sc_device)
 ## Warning: Removed 3 rows containing non-finite values (stat_boxplot).
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
 
 ```r
 ggsave("6a_mpe_plot_sc_device.pdf", plot = mpe_plot_sc_device, width = 6, height = 4)
@@ -546,6 +623,43 @@ ggsave("6a_mpe_plot_sc_device.pdf", plot = mpe_plot_sc_device, width = 6, height
 ```
 ## Warning: Removed 3 rows containing non-finite values (stat_boxplot).
 ```
+
+### MPE for step count by device model with 95% CI
+
+```r
+mpe_step_model <- validity_mpe_sc_device %>%
+  group_by(device_name) %>%
+  summarise(mpe_median = median(MPE, na.rm = TRUE),
+            mpe_mean = mean(MPE, na.rm = TRUE),
+            mpe_sd = sd(MPE, na.rm = TRUE),
+            mpe_n = n()) %>%
+  mutate(se_mpe = mpe_mean / sqrt(mpe_n),
+         l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
+         u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+
+kable(mpe_step_model, format = "markdown")
+```
+
+
+
+|device_name          | mpe_median|   mpe_mean|    mpe_sd| mpe_n|     se_mpe|   l_ci_mpe|  u_ci_mpe|
+|:--------------------|----------:|----------:|---------:|-----:|----------:|----------:|---------:|
+|Apple Watch          |  0.0027825|  0.2017806| 0.6798177|    20|  0.0451195| -1.2210943| 1.6246554|
+|Fitbit Charge        | -0.1968000| -0.2797361| 0.2936220|    17| -0.0678460| -0.9021869| 0.3427147|
+|Fitbit Charge 2      | -0.0225000| -0.1278952| 0.3045150|    21| -0.0279090| -0.7631024| 0.5073119|
+|Fitbit Charge HR     | -0.0030000|  0.1227791| 0.7490675|    59|  0.0159845| -1.3766423| 1.6222006|
+|Fitbit Classic       |  0.0600000|  0.1301295| 0.2987241|    17|  0.0315610| -0.5031372| 0.7633962|
+|Fitbit Flex          | -0.0653096| -0.0741478| 0.2298249|    71| -0.0087997| -0.5325191| 0.3842235|
+|Fitbit One           | -0.0108715| -0.0692484| 0.1749745|   130| -0.0060735| -0.4154397| 0.2769430|
+|Fitbit Surge         | -0.0544000| -0.0685423| 0.1017256|    17| -0.0166239| -0.2841909| 0.1471063|
+|Fitbit Ultra         | -0.0157325| -0.0482666| 0.0986715|    37| -0.0079350| -0.2483818| 0.1518485|
+|Fitbit Zip           | -0.0114500| -0.1300407| 0.3582570|   156| -0.0104116| -0.8377371| 0.5776556|
+|Garmin Vivosmart     |  0.0013000|  0.0178450| 0.0414956|    12|  0.0051514| -0.0734862| 0.1091762|
+|Garmin Vivosmart HR+ | -0.0381000| -0.2031151| 0.3223771|    23| -0.0423524| -0.8716843| 0.4654541|
+|Misfit Shine         | -0.4018000| -0.3710714| 0.2291136|    15| -0.0958102| -0.8624713| 0.1203284|
+|Polar Loop           | -0.0190000|  0.0137858| 0.1315676|    13|  0.0038235| -0.2728754| 0.3004470|
+|Withings Pulse O2    | -0.0051533| -0.1950356| 0.3422854|    32| -0.0344778| -0.8931313| 0.5030600|
+|Withings Pulse Ox    | -0.1016000| -0.2877183| 0.3809259|    29| -0.0534279| -1.0680096| 0.4925731|
 
 # Figure 6b: MPE Plot for HR by Device Model
 * Solid grey lines indicate ± 3% measurement error
@@ -596,11 +710,37 @@ mpe_plot_hr_device <- ggplot(validity_mpe_hr_device, aes(x = device_name, y = MP
 plot(mpe_plot_hr_device)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
 ```r
 ggsave("6b_mpe_plot_hr_device.pdf", plot = mpe_plot_hr_device, width = 6, height = 4)
 ```
+
+### MPE for heart rate by device model with 95% CI
+
+```r
+mpe_hr_model <- validity_mpe_hr_device %>%
+  group_by(device_name) %>%
+  summarise(mpe_median = median(MPE, na.rm = TRUE),
+            mpe_mean = mean(MPE, na.rm = TRUE),
+            mpe_sd = sd(MPE, na.rm = TRUE),
+            mpe_n = n()) %>%
+  mutate(se_mpe = mpe_mean / sqrt(mpe_n),
+         l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
+         u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+
+kable(mpe_hr_model, format = "markdown")
+```
+
+
+
+|device_name           | mpe_median|   mpe_mean|    mpe_sd| mpe_n|     se_mpe|   l_ci_mpe|  u_ci_mpe|
+|:---------------------|----------:|----------:|---------:|-----:|----------:|----------:|---------:|
+|Apple Watch           | -0.0059701|  0.0032577| 0.0368286|    49|  0.0004654| -0.0707911| 0.0773065|
+|Fitbit Charge 2       | -0.0053000| -0.0204565| 0.0591140|    29| -0.0037987| -0.1415461| 0.1006332|
+|Fitbit Charge HR      | -0.0224090| -0.0251083| 0.0415893|    35| -0.0042441| -0.1096278| 0.0594112|
+|Garmin Forerunner 225 |  0.0296115|  0.0688159| 0.0810496|    10|  0.0217615| -0.1145311| 0.2521628|
+|Garmin Vivosmart HR+  | -0.0105000| -0.0239143| 0.0742388|    28| -0.0045194| -0.1762397| 0.1284111|
 
 # Figure 6c: MPE Plot for EE by Device Model
 * Solid grey lines indicate ± 3% measurement error
@@ -635,10 +775,10 @@ table(validity_mpe_ee_device$Device)
 
 ```
 ## 
-##    Charge Charge HR   Classic      Flex       One  Pulse O2  Pulse Ox     Ultra 
-##        10        35        20        24        32        34        12        10 
-##   Vivofit     Watch 
-##        29        25
+##    Charge Charge HR   Classic      Flex       One  Pulse O2  Pulse Ox 
+##        10        35        20        24        32        34        12 
+##     Ultra   Vivofit     Watch 
+##        10        29        25
 ```
 
 
@@ -658,11 +798,41 @@ mpe_plot_ee_device <- ggplot(validity_mpe_ee_device, aes(x = device_name, y = MP
 plot(mpe_plot_ee_device)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
 
 ```r
 ggsave("6c_mpe_plot_ee_device.pdf", plot = mpe_plot_ee_device, width = 6, height = 4)
 ```
+
+### MPE for energy expenditure by device model with 95% CI
+
+```r
+mpe_ee_model <- validity_mpe_ee_device %>%
+  group_by(device_name) %>%
+  summarise(mpe_median = median(MPE, na.rm = TRUE),
+            mpe_mean = mean(MPE, na.rm = TRUE),
+            mpe_sd = sd(MPE, na.rm = TRUE),
+            mpe_n = n()) %>%
+  mutate(se_mpe = mpe_mean / sqrt(mpe_n),
+         l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
+         u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+kable(mpe_ee_model, format = "markdown")
+```
+
+
+
+|device_name       | mpe_median|   mpe_mean|    mpe_sd| mpe_n|     se_mpe|   l_ci_mpe|  u_ci_mpe|
+|:-----------------|----------:|----------:|---------:|-----:|----------:|----------:|---------:|
+|Apple Watch       |  0.0155568|  0.1677931| 0.5686853|    25|  0.0335586| -1.0059156| 1.3415018|
+|Fitbit Charge     |  0.0115000|  0.0939215| 0.2858897|    10|  0.0297006| -0.5528060| 0.7406489|
+|Fitbit Charge HR  |  0.0840580|  0.1265233| 0.3025316|    35|  0.0213863| -0.4882949| 0.7413415|
+|Fitbit Classic    | -0.1536919| -0.1579263| 0.2341949|    20| -0.0353134| -0.6481018| 0.3322492|
+|Fitbit Flex       |  0.0682155|  0.1506487| 0.2964634|    24|  0.0307510| -0.4626326| 0.7639301|
+|Fitbit One        | -0.0040000|  0.0229935| 0.2157553|    32|  0.0040647| -0.4170424| 0.4630295|
+|Fitbit Ultra      | -0.1191247| -0.1399655| 0.1727396|    10| -0.0442610| -0.5307297| 0.2507987|
+|Garmin Vivofit    | -0.2236842| -0.2667437| 0.2654648|    29| -0.0495331| -0.8105237| 0.2770363|
+|Withings Pulse O2 | -0.2000000| -0.2647230| 0.3380120|    34| -0.0453996| -0.9524136| 0.4229676|
+|Withings Pulse Ox | -0.0540000| -0.0683333| 0.2011686|    12| -0.0197261| -0.5111023| 0.3744357|
 
 # Figure 6 
 
@@ -683,7 +853,7 @@ figure6 <- plot_grid(mpe_plot_sc_device, mpe_plot_hr_device, mpe_plot_ee_device,
 plot(figure6)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
 
 ```r
 ggsave("figure6.pdf", plot = figure6, width = 8.5, height = 6)
@@ -799,13 +969,13 @@ table(reliability_cc_sc$reliability_type, reliability_cc_sc$Author)
 
 ```
 ##        
-##         Adam Noah Burton Clevenger De Ridder Diaz Jones Schaffer Sharp Smith
-##   Inter         8      2         2         3    3    10        0     1     4
-##   Intra         0      0         0         0    0     0        3     0     0
+##         Adam Noah Burton Clevenger De Ridder Diaz Jones Schaffer Sharp
+##   Inter         8      2         2         3    3    10        0     1
+##   Intra         0      0         0         0    0     0        3     0
 ##        
-##         Takacs Tophøj
-##   Inter      5      0
-##   Intra      0     10
+##         Smith Takacs Tophøj
+##   Inter     4      5      0
+##   Intra     0      0     10
 ```
 
 ```r
@@ -877,7 +1047,7 @@ relcc_plot_sc_type <- ggplot(reliability_cc_sc, aes(x = reliability_type, y = CC
 plot(relcc_plot_sc_type)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-32-1.png)<!-- -->
 
 
 ## Inter-Device Reliability CC Plot for Step Count
@@ -953,7 +1123,7 @@ relcc_plot_sc_intra <- ggplot(reliability_cc_sc_intra, aes(x = Brand, y = CC, co
 plot(relcc_plot_sc_intra)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-34-1.png)<!-- -->
 
 ## Reliability CC Plot for HR
 
@@ -978,7 +1148,7 @@ relcc_plot_hr <- ggplot(reliability_cc_hr, aes(x = Brand, y = CC, colour = Brand
 plot(relcc_plot_hr)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-35-1.png)<!-- -->
 
 ## Reliability CC Plot for EE
 
@@ -1003,7 +1173,7 @@ relcc_plot_ee <- ggplot(reliability_cc_ee, aes(x = Brand, y = CC, colour = Brand
 plot(relcc_plot_ee)
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
 
 
 ## Supplement Figure
@@ -1068,7 +1238,7 @@ plot(mpe_ee_plot_hr_device)
 ## Warning: Removed 133 rows containing non-finite values (stat_boxplot).
 ```
 
-![](wearable_systematic_review_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
+![](wearable_systematic_review_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
 
 ```r
 ggsave("supp_f1_mpe_ee_plot_hr_device.pdf", plot = mpe_ee_plot_hr_device, width = 6, height = 4)
