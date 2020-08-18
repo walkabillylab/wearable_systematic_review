@@ -18,9 +18,9 @@ validity <- read_excel("SysReview_Results_all_20190819.xlsx", sheet = "validity_
 ```
 
 ```
-## Warning in read_fun(path = enc2native(normalizePath(path)), sheet_i =
-## sheet, : Expecting logical in CU1178 / R1178C99: got 'at least one tracker
-## in approx 50% of subjects'
+## Warning in read_fun(path = enc2native(normalizePath(path)), sheet_i = sheet, :
+## Expecting logical in CU1178 / R1178C99: got 'at least one tracker in approx 50%
+## of subjects'
 ```
 
 ```r
@@ -142,7 +142,13 @@ brand_count_year <- brandcountbyyear %>%
         summarize(
           count = n()
         )
+```
 
+```
+## `summarise()` regrouping output by 'Year' (override with `.groups` argument)
+```
+
+```r
 brand_count_year
 ```
 
@@ -226,7 +232,7 @@ mpe_n_plot_sc <- ggplot(validity_mpe_sc_unfilter, aes(x = actual_n_analyzed, y =
                     scale_x_continuous(breaks = seq(0, 180, 30), limits = c(0, 180)) +
                     theme_classic() +
                     theme(plot.title = element_text(hjust = 0.5)) +
-                    xlab("# of Participants") +
+                    xlab("Number of Participants") +
                     ylab("Step MPE") +
                     annotate("rect", xmin = 35, xmax = 45, ymin = 1.00, ymax = 5.5, alpha = .2) + 
                     annotate("text", x = 55, y = 3.5, label = "outliers") 
@@ -261,8 +267,8 @@ mpe_n_plot_hr <- ggplot(validity_mpe_hr, aes(x = actual_n_analyzed, y = MPE)) +
                     scale_x_continuous(breaks = seq(0, 70, 10), limits = c(0, 70)) +
                     theme_classic() +
                     theme(plot.title = element_text(hjust = 0.5)) +
-                    xlab("# of Participants") +
-                    ylab("Heart Rate MPE") 
+                    xlab("Number of participants") +
+                    ylab("Heart rate MPE") 
 plot(mpe_n_plot_hr)
 ```
 
@@ -286,8 +292,8 @@ mpe_n_plot_ee <- ggplot(validity_mpe_ee, aes(x = actual_n_analyzed, y = MPE)) +
                     scale_x_continuous(breaks = seq(0, 120, 30), limits = c(0, 120)) +
                     theme_classic() +
                     theme(plot.title = element_text(hjust = 0.5)) +
-                    xlab("# of Participants") +
-                    ylab("Energy Expenditure MPE") +
+                    xlab("Number of Participants") +
+                    ylab("Energy expenditure MPE") +
                     annotate("rect", xmin = 30, xmax = 64, ymin = 1.30, ymax = 2.2, alpha = .2) + 
                     annotate("text", x = 46, y = 1.7, label = "outliers") 
 plot(mpe_n_plot_ee)
@@ -374,7 +380,13 @@ mpe_step <- validity_mpe_sc_brandfilter_control %>%
   mutate(se_mpe = mpe_mean / sqrt(mpe_n),
          l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
          u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+```
 
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```r
 kable(mpe_step, format = "markdown")
 ```
 
@@ -409,7 +421,7 @@ mpe_plot_hr_brandfilter_control <- ggplot(validity_mpe_hr_brandfilter_control, a
                     geom_hline(yintercept = 0.03, size = 0.5, colour = "grey", linetype = "dashed") + 
                     geom_hline(yintercept = -0.03, size = 0.5, colour = "grey", linetype = "dashed") +   
                     theme_classic() +
-                    ylab("Heart Rate MPE") +
+                    ylab("Heart rate MPE") +
                     scale_colour_brewer(palette="Dark2") +
                     theme(legend.position = "none")
                     
@@ -434,7 +446,13 @@ mpe_heart <- validity_mpe_hr_brandfilter_control %>%
   mutate(se_mpe = mpe_mean / sqrt(mpe_n),
          l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
          u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+```
 
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```r
 kable(mpe_heart, format = "markdown")
 ```
 
@@ -464,7 +482,7 @@ mpe_plot_ee_brandfilter_control <- ggplot(validity_mpe_ee_brandfilter_control, a
                     geom_hline(yintercept = 0.03, size = 0.5, colour = "grey", linetype = "dashed") + 
                     geom_hline(yintercept = -0.03, size = 0.5, colour = "grey", linetype = "dashed") +   
                     theme_classic() +
-                    ylab("Enegery Expenditure MPE") +
+                    ylab("Enegery expenditure MPE") +
                     scale_colour_brewer(palette="Dark2") +
                     theme(legend.position = "none")
 plot(mpe_plot_ee_brandfilter_control)
@@ -488,7 +506,13 @@ mpe_ee <- validity_mpe_ee_brandfilter_control %>%
   mutate(se_mpe = mpe_mean / sqrt(mpe_n),
          l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
          u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+```
 
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```r
 kable(mpe_ee, format = "markdown")
 ```
 
@@ -602,7 +626,7 @@ mpe_plot_sc_device <- ggplot(validity_mpe_sc_device, aes(x = device_name, y = MP
                     geom_hline(yintercept = 0.03, size = 0.5, colour = "grey", linetype = "dashed") + 
                     geom_hline(yintercept = -0.03, size = 0.5, colour = "grey", linetype = "dashed") +    
                     scale_x_discrete(labels = wrap_format(50)) +
-                    xlab("Device Model") +
+                    xlab("Device model") +
                     ylab("Step MPE") +
                     theme_classic() +
                     scale_colour_brewer(palette="Dark2") +
@@ -636,7 +660,13 @@ mpe_step_model <- validity_mpe_sc_device %>%
   mutate(se_mpe = mpe_mean / sqrt(mpe_n),
          l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
          u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+```
 
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```r
 kable(mpe_step_model, format = "markdown")
 ```
 
@@ -702,8 +732,8 @@ mpe_plot_hr_device <- ggplot(validity_mpe_hr_device, aes(x = device_name, y = MP
                     geom_hline(yintercept = 0.03, size = 0.5, colour = "grey", linetype = "dashed") + 
                     geom_hline(yintercept = -0.03, size = 0.5, colour = "grey", linetype = "dashed") +    
                     scale_x_discrete(labels = wrap_format(50)) +
-                    xlab("Device Model") +
-                    ylab("Heart Rate MPE") +
+                    xlab("Device model") +
+                    ylab("Heart rate MPE") +
                     theme_classic() +
                     scale_colour_brewer(palette="Dark2") +
                     theme(axis.text.x = element_text(angle = 90, hjust = 1))
@@ -728,7 +758,13 @@ mpe_hr_model <- validity_mpe_hr_device %>%
   mutate(se_mpe = mpe_mean / sqrt(mpe_n),
          l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
          u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+```
 
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```r
 kable(mpe_hr_model, format = "markdown")
 ```
 
@@ -775,10 +811,10 @@ table(validity_mpe_ee_device$Device)
 
 ```
 ## 
-##    Charge Charge HR   Classic      Flex       One  Pulse O2  Pulse Ox 
-##        10        35        20        24        32        34        12 
-##     Ultra   Vivofit     Watch 
-##        10        29        25
+##    Charge Charge HR   Classic      Flex       One  Pulse O2  Pulse Ox     Ultra 
+##        10        35        20        24        32        34        12        10 
+##   Vivofit     Watch 
+##        29        25
 ```
 
 
@@ -790,10 +826,10 @@ mpe_plot_ee_device <- ggplot(validity_mpe_ee_device, aes(x = device_name, y = MP
                     geom_hline(yintercept = 0.03, size = 0.5, colour = "grey", linetype = "dashed") + 
                     geom_hline(yintercept = -0.03, size = 0.5, colour = "grey", linetype = "dashed") +    
                     scale_x_discrete(labels = wrap_format(50)) +
-                    xlab("Device Model") +
+                    xlab("Device model") +
                     theme_classic() +
                     scale_colour_brewer(palette="Dark2") +
-                    ylab("Energy Expenditure MPE") +
+                    ylab("Energy expenditure MPE") +
                     theme(axis.text.x = element_text(angle = 90, hjust = 1))
 plot(mpe_plot_ee_device)
 ```
@@ -816,6 +852,13 @@ mpe_ee_model <- validity_mpe_ee_device %>%
   mutate(se_mpe = mpe_mean / sqrt(mpe_n),
          l_ci_mpe = mpe_mean - qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd,
          u_ci_mpe = mpe_mean + qt(1 - (0.05 / 2), mpe_n - 1) * mpe_sd)
+```
+
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```r
 kable(mpe_ee_model, format = "markdown")
 ```
 
@@ -969,13 +1012,13 @@ table(reliability_cc_sc$reliability_type, reliability_cc_sc$Author)
 
 ```
 ##        
-##         Adam Noah Burton Clevenger De Ridder Diaz Jones Schaffer Sharp
-##   Inter         8      2         2         3    3    10        0     1
-##   Intra         0      0         0         0    0     0        3     0
+##         Adam Noah Burton Clevenger De Ridder Diaz Jones Schaffer Sharp Smith
+##   Inter         8      2         2         3    3    10        0     1     4
+##   Intra         0      0         0         0    0     0        3     0     0
 ##        
-##         Smith Takacs Tophøj
-##   Inter     4      5      0
-##   Intra     0      0     10
+##         Takacs Tophøj
+##   Inter      5      0
+##   Intra      0     10
 ```
 
 ```r
@@ -1040,8 +1083,8 @@ relcc_plot_sc_type <- ggplot(reliability_cc_sc, aes(x = reliability_type, y = CC
                     geom_beeswarm(dodge.width = 0.2,cex = 0.8, alpha = 0.5) + 
                     ylim(0,1) +
                     theme_classic() +
-                    ylab("Step Correlation Coefficient") + 
-                    xlab("Reliability Type") + 
+                    ylab("Step correlation coefficient") + 
+                    xlab("Reliability type") + 
                     scale_colour_brewer(palette="Dark2") +                    
                     theme(legend.position = "none")
 plot(relcc_plot_sc_type)
@@ -1224,8 +1267,8 @@ mpe_ee_plot_hr_device <- ggplot(validity_mpe_ee, aes(x = hr_yes, y = MPE, colour
                     geom_hline(yintercept = 0.03, size = 0.5, colour = "grey", linetype = "dashed") + 
                     geom_hline(yintercept = -0.03, size = 0.5, colour = "grey", linetype = "dashed") +    
                     scale_x_discrete(labels = wrap_format(10)) +
-                    xlab("Heart Rate Measurement") +
-                    ylab("Heart Rate MPE") +
+                    xlab("Heart rate measurement") +
+                    ylab("Heart rate MPE") +
                     theme_classic() +
                     scale_colour_brewer(palette="Dark2") +
                     theme(legend.justification = c(1, 1), 
